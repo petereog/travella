@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:travella/features/home/view/widget/category_widget.dart';
 import 'package:travella/features/home/view/widget/city_widget.dart';
 import 'package:travella/features/home/view/widget/place_widget.dart';
+import 'package:travella/features/search/view/pages/search_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,6 +21,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final titles = ['Home', 'Search', 'Saved', 'Profile'];
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -31,9 +34,9 @@ class _HomePageState extends State<HomePage> {
               height: 24,
               width: 24,
             ),
-            const Text(
-              'Home',
-              style: TextStyle(
+            Text(
+              titles[_selectedIndex],
+              style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
               ),
@@ -46,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                 width: 40,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) =>
-                const Icon(Icons.account_circle, size: 40),
+                    const Icon(Icons.account_circle, size: 40),
               ),
             ),
           ],
@@ -54,11 +57,17 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Stack(
         children: [
-          // ── Page Content ───────────────────────────────────────
+          // ── Page Content (using IndexedStack to preserve tab state) ──
           SafeArea(
-            child: _selectedIndex == 0
-                ? _buildHomeBody()
-                : _buildPlaceholderPage(_selectedIndex),
+            child: IndexedStack(
+              index: _selectedIndex,
+              children: [
+                _buildHomeBody(),
+                const SearchScreen(),
+                _buildPlaceholderPage(2),
+                _buildPlaceholderPage(3),
+              ],
+            ),
           ),
 
           // ── Floating Bottom Nav ────────────────────────────────
@@ -75,10 +84,30 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _navItem(icon: Icons.home_outlined, activeIcon: Icons.home, index: 0, label: 'Home'),
-                  _navItem(icon: Icons.search_outlined, activeIcon: Icons.search, index: 1, label: 'Search'),
-                  _navItem(icon: Icons.bookmark_border, activeIcon: Icons.bookmark, index: 2, label: 'Saved'),
-                  _navItem(icon: Icons.person_outline, activeIcon: Icons.person, index: 3, label: 'Profile'),
+                  _navItem(
+                    icon: Icons.home_outlined,
+                    activeIcon: Icons.home,
+                    index: 0,
+                    label: 'Home',
+                  ),
+                  _navItem(
+                    icon: Icons.search_outlined,
+                    activeIcon: Icons.search,
+                    index: 1,
+                    label: 'Search',
+                  ),
+                  _navItem(
+                    icon: Icons.bookmark_border,
+                    activeIcon: Icons.bookmark,
+                    index: 2,
+                    label: 'Saved',
+                  ),
+                  _navItem(
+                    icon: Icons.person_outline,
+                    activeIcon: Icons.person,
+                    index: 3,
+                    label: 'Profile',
+                  ),
                 ],
               ),
             ),
@@ -101,7 +130,7 @@ class _HomePageState extends State<HomePage> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isActive ? Colors.blue.withOpacity(0.12) : Colors.transparent,
+          color: isActive ? Colors.blue.withAlpha(20) : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(
@@ -135,8 +164,6 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 12),
-
-          // ── Hero Text ──────────────────────────────────────────
           const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -154,31 +181,22 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-
           const SizedBox(height: 20),
-
-          // ── Categories ─────────────────────────────────────────
           const CategoryWidget(),
-
           const SizedBox(height: 24),
-
-          // ── City List (horizontal scroll) ──────────────────────
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: List.generate(
                 4,
-                    (index) => const Padding(
+                (index) => const Padding(
                   padding: EdgeInsets.only(right: 12),
                   child: CityWidget(),
                 ),
               ),
             ),
           ),
-
           const SizedBox(height: 24),
-
-          // ── Top Places Header ──────────────────────────────────
           Row(
             children: [
               const Text(
@@ -199,13 +217,10 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-
           const SizedBox(height: 12),
-
-          // ── Place List ─────────────────────────────────────────
           ...List.generate(
-            2,
-                (index) => const Padding(
+            6,
+            (index) => const Padding(
               padding: EdgeInsets.only(bottom: 12),
               child: PlaceWidget(),
             ),
@@ -216,16 +231,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildPlaceholderPage(int index) {
-    const tabs = ['Search', 'Saved', 'Profile'];
-    const icons = [Icons.search, Icons.bookmark, Icons.person];
+    const tabs = ['Home', 'Search', 'Saved', 'Profile'];
+    const icons = [Icons.home, Icons.search, Icons.bookmark, Icons.person];
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icons[index - 1], size: 72, color: Colors.blue),
+          Icon(icons[index], size: 72, color: Colors.blue),
           const SizedBox(height: 16),
           Text(
-            tabs[index - 1],
+            tabs[index],
             style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
         ],

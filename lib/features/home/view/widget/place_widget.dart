@@ -17,7 +17,7 @@ class PlaceWidget extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image.asset(
-              'assets/images/poster2.png',
+              'assets/images/mount.png',
               height: 80,
               width: 80,
               fit: BoxFit.cover,
