@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                 width: 40,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) =>
-                    const Icon(Icons.account_circle, size: 40),
+                const Icon(Icons.account_circle, size: 40),
               ),
             ),
           ],
@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                 _buildHomeBody(),
                 const SearchScreen(),
                 const SavedScreen(),
-               const ProfileScreen()
+                const ProfileScreen()
               ],
             ),
           ),
@@ -191,7 +191,8 @@ class _HomePageState extends State<HomePage> {
             child: Row(
               children: List.generate(
                 4,
-                (index) => const Padding(
+                    (index) =>
+                const Padding(
                   padding: EdgeInsets.only(right: 12),
                   child: CityWidget(),
                 ),
@@ -222,28 +223,11 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 12),
           ...List.generate(
             6,
-            (index) => const Padding(
+                (index) =>
+            const Padding(
               padding: EdgeInsets.only(bottom: 12),
               child: PlaceWidget(),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPlaceholderPage(int index) {
-    const tabs = ['Home', 'Search', 'Saved', 'Profile'];
-    const icons = [Icons.home, Icons.search, Icons.bookmark, Icons.person];
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icons[index], size: 72, color: Colors.blue),
-          const SizedBox(height: 16),
-          Text(
-            tabs[index],
-            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
         ],
       ),
