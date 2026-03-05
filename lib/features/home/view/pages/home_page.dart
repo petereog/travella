@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:travella/features/home/view/widget/category_widget.dart';
 import 'package:travella/features/home/view/widget/city_widget.dart';
 import 'package:travella/features/home/view/widget/place_widget.dart';
+import 'package:travella/features/profile/view/pages/profile_screen.dart';
+import 'package:travella/features/saved/view/pages/saved_screen.dart';
 import 'package:travella/features/search/view/pages/search_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -64,8 +66,8 @@ class _HomePageState extends State<HomePage> {
               children: [
                 _buildHomeBody(),
                 const SearchScreen(),
-                _buildPlaceholderPage(2),
-                _buildPlaceholderPage(3),
+                const SavedScreen(),
+               const ProfileScreen()
               ],
             ),
           ),

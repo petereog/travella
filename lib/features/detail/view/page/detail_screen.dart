@@ -130,7 +130,7 @@ class DetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Mount Bromo is an active volcano and part of the Tengger massif, in East Java, Indonesia. At 2,329 meters it is not the highest peak of the massif, but is the most well known.',
+                    'Raja ampat Islands is an active volcano and part of the Tengger massif, in East Java, Indonesia. At 2,329 meters it is not the highest peak of the massif, but is the most well known.',
                     style: TextStyle(color: Colors.grey[600], fontSize: 14, height: 1.5),
                   ),
                   const SizedBox(height: 32),
@@ -154,8 +154,8 @@ class DetailScreen extends StatelessWidget {
                         ),
                       ),
                     ],
-                        ),
-                        ),
+              ),
+            ),
           )
         ],
       ),
