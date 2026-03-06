@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          // ── Floating Bottom Nav ────────────────────────────────
+          // ── Floating Bottom Nav ──────────────────────────────
           Positioned(
             bottom: 24,
             left: 24,
