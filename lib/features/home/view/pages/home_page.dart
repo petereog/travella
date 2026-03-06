@@ -225,7 +225,7 @@ class _HomePageState extends State<HomePage> {
             6,
                 (index) =>
             const Padding(
-              padding: EdgeInsets.only(bottom: 12),
+              padding: EdgeInsets.only(bottom: 1),
               child: PlaceWidget(),
             ),
           ),
